@@ -1,50 +1,84 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Breast Cancer Prediction</title>
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+   <style>
+      body {
+         background-color: #f8f9fa;
+      }
+      .container {
+         margin-top: 50px;
+      }
+      .purple-border {
+         border: 1px solid #6f42c1;
+         padding: 10px;
+         margin-bottom: 10px;
+      }
+      .btn-primary {
+         background-color: #6f42c1;
+         border-color: #6f42c1;
+      }
+      .watermark {
+         color: #ccc; /* Light gray color */
+      }
+   </style>
 </head>
-   <body>
-      <title>Breast Cancer Prediction</title>
-	  <div class="container">
-		<div class="row">
+<body>
+   <div class="container">
+      <div class="row">
+         <div class="col-md-9">
+            <form action="{{ url_for('predict')}}" method="POST">
+               <div class="purple-border">
+                  <label for="query1">texture_mean:</label>
+                  <textarea class="form-control watermark" rows="2" id="query1" name="query1" onfocus="if(this.value=='{{query1}}') this.value=''; this.classList.remove('watermark');" onblur="if(this.value=='') {this.value='{{query1}}'; this.classList.add('watermark');}" autofocus>{{query1}}</textarea>
+               </div>
+               <div class="purple-border">
+                  <label for="query2">perimeter_mean:</label>
+                  <textarea class="form-control watermark" rows="2" id="query2" name="query2" onfocus="if(this.value=='{{query2}}') this.value=''; this.classList.remove('watermark');" onblur="if(this.value=='') {this.value='{{query2}}'; this.classList.add('watermark');}" autofocus>{{query2}}</textarea>
+               </div>
+               <div class="purple-border">
+                  <label for="query3">smoothness_mean:</label>
+                  <textarea class="form-control watermark" rows="2" id="query3" name="query3" onfocus="if(this.value=='{{query3}}') this.value=''; this.classList.remove('watermark');" onblur="if(this.value=='') {this.value='{{query3}}'; this.classList.add('watermark');}" autofocus>{{query3}}</textarea>
+               </div>
+               <div class="purple-border">
+                  <label for="query4">compactness_mean:</label>
+                  <textarea class="form-control watermark" rows="2" id="query4" name="query4" onfocus="if(this.value=='{{query4}}') this.value=''; this.classList.remove('watermark');" onblur="if(this.value=='') {this.value='{{query4}}'; this.classList.add('watermark');}" autofocus>{{query4}}</textarea>
+               </div>
+               <div class="purple-border">
+                  <label for="query5">symmetry_mean:</label>
+                  <textarea class="form-control watermark" rows="2" id="query5" name="query5" onfocus="if(this.value=='{{query5}}') this.value=''; this.classList.remove('watermark');" onblur="if(this.value=='') {this.value='{{query5}}'; this.classList.add('watermark');}" autofocus>{{query5}}</textarea>
+               </div>
+               <button type="submit" class="btn btn-primary" name="submit">SUBMIT</button>
+            </form>
+         </div>
+         <div class="col-md-3">
+            <!-- Empty column for spacing -->
+         </div>
+      </div>
+      <div class="row">
+         <div class="col-md-9">
+            <textarea class="form-control" rows="2" id="output1" name="query6" autofocus>{{output1}}</textarea>
+            <textarea class="form-control" rows="2" id="output2" name="query7" autofocus>{{output2}}</textarea>
+         </div>
+         <div class="col-md-3">
+            <!-- Empty column for spacing -->
+         </div>
+      </div>
+   </div>
 
-		  <form action="{{ url_for('predict')}}" method="POST">
-		  	<div class="col-sm-9">
-			 <div class="form-group  purple-border">
-				  <label for="comment">texture_mean:</label>
-				  <textarea class="form-control" rows="2" id="query1" name="query1" rows="2" cols="5" autofocus>{{query1}}</textarea>
-			</div>
-			<div class="form-group  purple-border">
-				  <label for="comment">perimeter_mean:</label>
-				  <textarea class="form-control" rows="2" id="query2" name="query2" rows="2" cols="5" autofocus>{{query2}}</textarea>
-			</div>
-			<div class="form-group  purple-border">
-				  <label for="comment">smoothness_mean:</label>
-				  <textarea class="form-control" rows="2" id="query3" name="query3" rows="2" cols="5" autofocus>{{query3}}</textarea>
-			</div>
-			<div class="form-group  purple-border">
-				  <label for="comment">compactness_mean:</label>
-				  <textarea class="form-control" rows="2" id="query4" name="query4" rows="2" cols="5" autofocus>{{query4}}</textarea>
-			</div>
-			<div class="form-group  purple-border">
-				  <label for="comment">symmetry_mean:</label>
-				  <textarea class="form-control" rows="2" id="query5" name="query5" rows="2" cols="5" autofocus>{{query5}}</textarea>
-			</div>
-			</div>
-			<div class="col-sm-3">
-			<button type="submit" class="btn btn-primary" name="submit">SUBMIT</button>
-			</div>
-		  </form>
-		  </div>
-		  
-		<div class="row"> 
-			<div class="col-sm-9">
-			<textarea class="form-control" rows="2" id="comment" name="query6" rows="2" cols="5" autofocus>{{output1}}</textarea>
-			<textarea class="form-control" rows="2" id="comment" name="query7" rows="2" cols="5" autofocus>{{output2}}</textarea>
-			</div>
-		</div>
-	</div>		
-   </body>
+   <script>
+      // Remove watermark class and clear value when user starts typing
+      document.addEventListener('DOMContentLoaded', function () {
+         var watermarks = document.querySelectorAll('.watermark');
+         watermarks.forEach(function (watermark) {
+            watermark.addEventListener('input', function () {
+               watermark.classList.remove('watermark');
+            });
+         });
+      });
+   </script>
+</body>
 </html>
